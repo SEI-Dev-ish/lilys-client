@@ -66,6 +66,7 @@ class App extends Component {
                   id={flower.id}
                   name={flower.name}
                   description={flower.description}
+                  image={flower.image}
                   price={flower.price}
                 />
               ))}
