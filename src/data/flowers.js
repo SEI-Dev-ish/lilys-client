@@ -1,4 +1,4 @@
-const flowers = [
+export default [
   {
     id: 1,
     name: 'Acupolco',
@@ -20,5 +20,3 @@ const flowers = [
     price: 8
   }
 ]
-
-export default flowers

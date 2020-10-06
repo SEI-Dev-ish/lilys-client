@@ -8,7 +8,7 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-// import flowers from './../../data/flowers'
+import flowers from './../../data/flowers'
 import Flower from './../../Flower'
 
 class App extends Component {
@@ -56,8 +56,19 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <h1>Welcome to React!</h1>
-          <Route path='/' component={Flower} />
+          <Route path='/' render={() => (
+            <div>
+              <h2>Flowers</h2>
+              {flowers.map(flower => (
+                <Flower
+                  key={flower.name}
+                  id={flower.id}
+                  name={flower.name}
+                  price={flower.price}
+                />
+              ))}
+            </div>
+          )}/>
         </main>
       </Fragment>
     )

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import flowers from './data/flowers'
+// import flowers from './data/flowers'
 
 class Flower extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       userSignedIn: false,
       isInOrder: false
@@ -12,14 +12,8 @@ class Flower extends Component {
   render () {
     return (
       <div>
-        {flowers.map(flower => (
-          <Flower
-            id={flower.id}
-            key={flower.name}
-            name={flower.name}
-            price={flower.price}
-          />
-        ))}
+        <h3>Name: {this.props.name}</h3>
+        <p>Price: {this.props.price}</p>
       </div>
     )
   }
