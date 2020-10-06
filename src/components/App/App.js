@@ -56,7 +56,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <Route path='/' render={() => (
+          <Route exact path='/' render={() => (
             <div>
               <h2>Flowers</h2>
               {flowers.map(flower => (
