@@ -15,7 +15,7 @@ class Order extends Component {
     const user = this.props.user
     showOrder(user)
       .then(response => {
-        console.log('before', this.state.order)
+        console.log('response is', response.data.orders[0])
         this.setState({
           order: response.data.orders,
           isInOrder: true
@@ -27,7 +27,6 @@ class Order extends Component {
     return (
       <div>
         <h2>Current Order</h2>
-        {this.state.order}
       </div>
     )
   }
