@@ -5,10 +5,12 @@ import { showOrder } from './../../api/order'
 
 class OrderHistory extends Component {
   constructor (props) {
+    console.log(props)
     super(props)
     this.state = {
       order: [],
-      isLoaded: false
+      isLoaded: false,
+      isComplete: false
     }
   }
 
