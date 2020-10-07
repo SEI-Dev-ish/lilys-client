@@ -18,6 +18,7 @@ class OrderHistory extends Component {
     const user = this.props.user
     showOrder(user)
       .then(response => {
+        console.log(response)
         this.setState({
           order: response.data.order,
           isLoaded: true
@@ -32,17 +33,22 @@ class OrderHistory extends Component {
     } else if (this.state.order.length === 0) {
       jsx = <p>You Have No Past Orders</p>
     } else {
-      jsx = <div>
-        <h5>Here Is Your Order History</h5>
-        <ol>
-          {this.state.order.map(({ _id, flower, totalPrice }) => (
-            <div key={_id}>
-              <li id={_id}>Flowers: {flower}</li>
-              <p>Total Price: {totalPrice}</p>
-            </div>
-          ))}
-        </ol>
-      </div>
+      for (let i = 0; i < this.state.order.length; i++) {
+        jsx = <div>
+          <h5>Here Is Your Order History</h5>
+          <div>
+            <ol>
+              <li><h6>Order Id: {this.state.order[i]._id}</h6></li>
+              {this.state.order[i].flower.map(({ _id, name, price }) => (
+                <span key={_id}>
+                  <h6>Flower: {name} ${price}</h6>
+                </span>
+              ))}
+              <p>Total Price: {this.state.order[i].totalPrice}</p>
+            </ol>
+          </div>
+        </div>
+      }
     }
     return (
       <div>
