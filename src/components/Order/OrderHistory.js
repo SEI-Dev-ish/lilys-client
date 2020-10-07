@@ -31,7 +31,7 @@ class OrderHistory extends Component {
       jsx = <p>You Have No Past Orders</p>
     } else {
       jsx = <div>
-        <h2>Here Is Your Order History</h2>
+        <h5>Here Is Your Order History</h5>
         <ol>
           {this.state.order.map(({ _id, flower, totalPrice }) => (
             <div key={_id}>
