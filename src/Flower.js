@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import apiUrl from './apiConfig'
+// import apiUrl from './apiConfig'
 // import flowers from './data/flowers'
 
 class Flower extends Component {
@@ -15,11 +15,6 @@ class Flower extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log(this.state.order)
-    axios({
-      url: `${apiUrl}/orders`,
-      method: 'POST'
-    })
   }
   render () {
     console.log(this.state)
@@ -35,7 +30,7 @@ class Flower extends Component {
                   {this.props.description}
                   Price: {this.props.price}
                 </Card.Text>
-                <Button onSubmit={this.handleSubmit} variant="primary">Add to cart</Button>
+                <Button onClick={this.handleSubmit} variant="primary">Add to cart</Button>
               </Card.Body>
             </Card>
           </div>
