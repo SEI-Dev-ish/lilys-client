@@ -44,7 +44,7 @@ class OrderHistory extends Component {
                   <h6>Flower: {name} ${price}</h6>
                 </span>
               ))}
-              <p>Total Price: {this.state.order[i].totalPrice}</p>
+              <p>Total Price: ${this.state.order[i].totalPrice}</p>
             </ol>
           </div>
         </div>
