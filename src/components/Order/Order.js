@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { showOrder } from './../../api/order'
 
 class Order extends Component {
   constructor (props) {
     console.log('order props', props)
     super(props)
-    this.state = {}
+    this.state = {
+      order: [],
+      isInOrder: false
+    }
   }
 
+  componentDidMount () {
+    const user = this.props.user
+    showOrder(user)
+      .then(response => {
+        console.log('before', this.state.order)
+        this.setState({
+          order: response.data.orders,
+          isInOrder: true
+        })
+      })
+      .catch(console.error)
+  }
   render () {
     return (
       <div>
         <h2>Current Order</h2>
-        <Link to='/order-history'>Order History</Link>
+        {this.state.order}
       </div>
     )
   }
