@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 class Order extends Component {
   constructor (props) {
+    console.log('order props', props)
     super(props)
     this.state = {}
   }

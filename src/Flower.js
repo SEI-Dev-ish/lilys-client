@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-// import axios from 'axios'
+// import { Route } from 'react-router-dom'
+import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-// import apiUrl from './apiConfig'
+import apiUrl from './apiConfig'
 // import flowers from './data/flowers'
 
 class Flower extends Component {
@@ -15,7 +16,33 @@ class Flower extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log(this.props.name, this.props.price)
+    console.log(this.props.user.token)
+    // const flower = this.props.name + this.props.price
+    axios({
+      url: `${apiUrl}/orders`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        order: {
+          isComplete: false,
+          totalPrice: this.props.price,
+          flower: [ {
+            name: this.props.name,
+            price: this.props.price
+          }
+          ]
+        },
+        owner: this.props.user
+
+      }
+    })
+      .then((response) => this.setState({ isInOrder: true }))
+      .catch(console.error)
   }
+
   render () {
     console.log(this.state)
     let jsx
