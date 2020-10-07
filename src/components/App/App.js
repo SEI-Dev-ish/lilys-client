@@ -10,6 +10,8 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import flowers from './../../data/flowers'
 import Flower from './../../Flower'
+import Order from './../Order/Order'
+import OrderHistory from './../Order/OrderHistory'
 
 class App extends Component {
   constructor () {
@@ -56,6 +58,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+
           <Route user={user} exact path='/' render={() => (
             <div>
               <h2>Flowers</h2>
@@ -72,6 +75,12 @@ class App extends Component {
               ))}
             </div>
           )}/>
+          <Route exact path='/order' render={() => (
+            <Order user={user} />
+          )} />
+          <Route exact path='/order-history' render={() => (
+            <OrderHistory user={user} />
+          )} />
         </main>
       </Fragment>
     )
