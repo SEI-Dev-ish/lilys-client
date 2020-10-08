@@ -35,7 +35,7 @@ class Order extends Component {
             orderId: response.data.order[orderCount]._id,
             orderPrice: response.data.order[orderCount].flower[0].price,
             isInOrder: true,
-            orderQuantity: response.data.order[orderCount].flower[0].orderQuantity,
+            orderQuantity: response.data.order[orderCount].quantity,
             flowerName: response.data.order[orderCount].flower[0].name
           })
         } else {
@@ -47,6 +47,7 @@ class Order extends Component {
       })
       .catch(console.error)
   }
+
   handleUp = (event) => {
     event.preventDefault()
     this.setState((prevState) => {

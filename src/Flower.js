@@ -11,14 +11,14 @@ class Flower extends Component {
     super(props)
     this.state = {
       isInOrder: false,
-      quantity: ''
+      quantity: 1
     }
   }
 
   handleSubmit = (event) => {
     console.log(this.props.name, this.props.price)
     console.log(this.props.user.token)
-    console.log('quantity', this.props.orderQuantity)
+    console.log('quantity', this.state.quantity)
     // const flower = this.props.name + this.props.price
     axios({
       url: `${apiUrl}/order`,
@@ -30,6 +30,7 @@ class Flower extends Component {
         order: {
           isComplete: false,
           totalPrice: this.props.price,
+          quantity: this.state.quantity,
           flower: [ {
             name: this.props.name,
             price: this.props.price,
