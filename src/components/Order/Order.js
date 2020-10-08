@@ -13,7 +13,8 @@ class Order extends Component {
       orderPrice: '',
       isInOrder: false,
       orderQuantity: 0,
-      isDeleted: false
+      isDeleted: false,
+      flowerName: ''
     }
   }
 
@@ -23,7 +24,7 @@ class Order extends Component {
     // console.log('update order id', this.props)
     showOrder(user)
       .then(response => {
-        orderCount = (response.data.orders.length - 1)
+        orderCount = (response.data.orders.length - 1) // look for incomplete
         console.log('last order index is', response.data.orders[orderCount])
         console.log('last order id', response.data.orders[orderCount]._id)
         console.log('last flower price', response.data.orders[orderCount].flower[0].price)
@@ -31,7 +32,8 @@ class Order extends Component {
           orderId: response.data.orders[orderCount]._id,
           orderPrice: response.data.orders[orderCount].flower[0].price,
           isInOrder: true,
-          orderQuantity: response.data.orders[orderCount].flower[0].orderQuantity
+          orderQuantity: response.data.orders[orderCount].flower[0].orderQuantity,
+          flowerName: response.data.orders[orderCount].flower[0].name
         })
       })
       .catch(console.error)
@@ -40,12 +42,13 @@ class Order extends Component {
     event.preventDefault()
     console.log('handleUpdate', this.state.orderId, this.state.orderQuantity)
     console.log('update token', this.props.user.token)
-    const updatedQuantity = 2
+    const updatedQuantity = 2 // how to update the quantity
     console.log('updatedQuantity is', updatedQuantity)
     this.setState({ // this does not update orderQuantity. Help.
       orderQuantity: updatedQuantity
     })
     console.log('updated quantity is', this.state.orderQuantity)
+    console.log('flowerName is', this.state.flowerName)
     axios({
       url: `${apiUrl}/orders/${this.state.orderId}`,
       method: 'PATCH',
