@@ -90,34 +90,6 @@ class Order extends Component {
     console.log('updated quantity is', this.state.orderQuantity)
     console.log('flowerName is', this.state.flowerName)
   }
-  componentDidMount () {
-    const user = this.props.user
-    let orderCount = []
-    // console.log('update order id', this.props)
-    showOrder(user)
-      .then(response => {
-        if (response.data.order.length > 0) {
-          orderCount = (response.data.order.length - 1) // look for incomplete
-          console.log('last order index is', response.data.order)
-          // console.log('last order id', response.data.order[orderCount]._id)
-          console.log('last flower price', response.data.order[orderCount].flower[0].price)
-          this.setState({
-            isLoaded: true,
-            orderId: response.data.order[orderCount]._id,
-            orderPrice: response.data.order[orderCount].flower[0].price,
-            isInOrder: true,
-            orderQuantity: response.data.order[orderCount].quantity,
-            flowerName: response.data.order[orderCount].flower[0].name
-          })
-        } else {
-          this.setState({
-            orderId: '',
-            isLoaded: true
-          })
-        }
-      })
-      .catch(console.error)
-  }
   handleDestroy = () => {
     axios({
       url: `${apiUrl}/orders/${this.state.orderId}`,
