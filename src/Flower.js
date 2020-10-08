@@ -22,7 +22,7 @@ class Flower extends Component {
     console.log('quantity', this.props.orderQuantity)
     // const flower = this.props.name + this.props.price
     axios({
-      url: `${apiUrl}/orders`,
+      url: `${apiUrl}/order`,
       method: 'POST',
       headers: {
         'Authorization': `Token token=${this.props.user.token}`

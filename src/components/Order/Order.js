@@ -14,7 +14,8 @@ class Order extends Component {
       isInOrder: false,
       orderQuantity: 0,
       isDeleted: false,
-      flowerName: ''
+      flowerName: '',
+      isLoaded: false
     }
   }
 
@@ -24,17 +25,25 @@ class Order extends Component {
     // console.log('update order id', this.props)
     showOrder(user)
       .then(response => {
-        orderCount = (response.data.orders.length - 1) // look for incomplete
-        console.log('last order index is', response.data.orders[orderCount])
-        console.log('last order id', response.data.orders[orderCount]._id)
-        console.log('last flower price', response.data.orders[orderCount].flower[0].price)
-        this.setState({
-          orderId: response.data.orders[orderCount]._id,
-          orderPrice: response.data.orders[orderCount].flower[0].price,
-          isInOrder: true,
-          orderQuantity: response.data.orders[orderCount].flower[0].orderQuantity,
-          flowerName: response.data.orders[orderCount].flower[0].name
-        })
+        if (response.data.order.length > 0) {
+          orderCount = (response.data.order.length - 1) // look for incomplete
+          console.log('last order index is', response.data.order)
+          // console.log('last order id', response.data.order[orderCount]._id)
+          console.log('last flower price', response.data.order[orderCount].flower[0].price)
+          this.setState({
+            isLoaded: true,
+            orderId: response.data.order[orderCount]._id,
+            orderPrice: response.data.order[orderCount].flower[0].price,
+            isInOrder: true,
+            orderQuantity: response.data.order[orderCount].flower[0].orderQuantity,
+            flowerName: response.data.order[orderCount].flower[0].name
+          })
+        } else {
+          this.setState({
+            orderId: '',
+            isLoaded: true
+          })
+        }
       })
       .catch(console.error)
   }
@@ -82,25 +91,25 @@ class Order extends Component {
       .catch(console.error)
   }
   render () {
-    console.log('orders is', this.state.order[7])
-    const { orders } = this.state
+    const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-    } else if (this.state.order.length === 0) {
-      jsx = <p>You have no pending orders at this moment</p>
+    } else if (this.state.orderId === '') {
+      jsx = <p>You have no orders at this time</p>
     } else {
       jsx = (
-        <ul>
-          {this.state.order.map((order) => {
-            return <li key={order._id}>{ orders }</li>
-          })}
-        </ul>
+        <div key={orderId}>
+          <h5>{flowerName}</h5>
+          <p>Price: ${orderPrice}</p>
+          <p>Quantity: {orderQuantity}</p>
+        </div>
       )
     }
     return (
       <div>
         <h2>Current Order</h2>
+        {jsx}
         <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
         <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
