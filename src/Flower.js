@@ -52,7 +52,7 @@ class Flower extends Component {
     if (this.props.user !== null) {
       jsx =
           <div>
-            <Card style={{ width: '18rem' }}>
+            <Card border='primary' style={{ width: '18rem' }} >
               <Card.Img variant="top" src={this.props.image} />
               <Card.Body>
                 <Card.Title>{this.props.name}</Card.Title>
@@ -67,7 +67,7 @@ class Flower extends Component {
     } if (this.props.user === null) {
       jsx =
       <div>
-        <Card style={{ width: '18rem' }}>
+        <Card border='primary' style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.props.image}/>
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
