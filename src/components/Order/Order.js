@@ -139,7 +139,6 @@ class Order extends Component {
   }
   render () {
     console.log('render quantity', this.state.orderQuantity)
-    const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     let jsx
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     if (this.state.isLoaded === false) {
@@ -153,7 +152,8 @@ class Order extends Component {
           <h5>{flowerName}</h5>
           <p>Price: ${orderPrice}</p>
           <p>Quantity: {orderQuantity}</p>
-          <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
+          <Button onClick={this.handleUp} variant="primary">Up</Button>
+          <Button onClick={this.handleDown} variant="primary">Down</Button>
           <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
         </div>
       )
@@ -161,9 +161,6 @@ class Order extends Component {
     return (
       <div>
         {jsx}
-        <Button onClick={this.handleUp} variant="primary">Up</Button>
-        <Button onClick={this.handleDown} variant="primary">Down</Button>
-        <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
     )
   }
