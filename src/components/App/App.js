@@ -71,6 +71,7 @@ class App extends Component {
                   description={flower.description}
                   image={flower.image}
                   price={flower.price}
+                  orderQuantity={flower.orderQuantity}
                 />
               ))}
             </div>
