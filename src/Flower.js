@@ -4,6 +4,7 @@ import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import apiUrl from './apiConfig'
+import messages from './components/AutoDismissAlert/messages'
 // import flowers from './data/flowers'
 
 class Flower extends Component {
@@ -16,6 +17,7 @@ class Flower extends Component {
   }
 
   handleSubmit = (event) => {
+    const { msgAlert } = this.props
     console.log(this.props.name, this.props.price)
     console.log(this.props.user.token)
     console.log('quantity', this.state.quantity)
@@ -43,7 +45,11 @@ class Flower extends Component {
       }
     })
       .then((response) => this.setState({ isInOrder: true }))
-      .then((response) => console.log('post res', response))
+      .then(() => msgAlert({
+        heading: 'Item Added',
+        message: messages.addedToOrder,
+        variant: 'success'
+      }))
       .catch(console.error)
   }
 

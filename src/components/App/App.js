@@ -72,6 +72,7 @@ class App extends Component {
                   image={flower.image}
                   price={flower.price}
                   orderQuantity={flower.orderQuantity}
+                  msgAlert={this.msgAlert}
                 />
               ))}
             </div>
