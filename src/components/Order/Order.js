@@ -47,15 +47,21 @@ class Order extends Component {
       })
       .catch(console.error)
   }
-  handleUpdate = (event) => {
+  handleUp = (event) => {
     event.preventDefault()
-    console.log('handleUpdate', this.state.orderId, this.state.orderQuantity)
-    console.log('update token', this.props.user.token)
-    const updatedQuantity = 2 // how to update the quantity
-    console.log('updatedQuantity is', updatedQuantity)
-    this.setState({ // this does not update orderQuantity. Help.
-      orderQuantity: updatedQuantity
+    this.setState((prevState) => {
+      const prevOrderQuantity = prevState.orderQuantity
+      const newOrderQuantity = prevOrderQuantity + 1
+      return { orderQuantity: newOrderQuantity }
     })
+
+    // console.log('handleUpdate', this.state.orderId, this.state.orderQuantity)
+    // console.log('update token', this.props.user.token)
+    // const updatedQuantity = 2 // how to update the quantity
+    // console.log('updatedQuantity is', updatedQuantity)
+    // this.setState({ // this does not update orderQuantity. Help.
+    //   orderQuantity: updatedQuantity
+    // })
     console.log('updated quantity is', this.state.orderQuantity)
     console.log('flowerName is', this.state.flowerName)
     axios({
@@ -66,13 +72,52 @@ class Order extends Component {
       },
       data: {
         order: {
-          orderQuantity: updatedQuantity
+          orderQuantity: this.state.orderQuantity
         }
       },
       owner: this.props.user
     })
       .then((response) => console.log(response))
       .catch(console.error)
+    console.log('updated quantity is', this.state.orderQuantity)
+  }
+
+  handleDown = (event) => {
+    event.preventDefault()
+    this.setState((prevState) => {
+      const prevOrderQuantity = prevState.orderQuantity
+      let newOrderQuantity = prevOrderQuantity
+      if (prevOrderQuantity > 1) {
+        newOrderQuantity = prevOrderQuantity - 1
+      }
+      return { orderQuantity: newOrderQuantity }
+    })
+
+    // console.log('handleUpdate', this.state.orderId, this.state.orderQuantity)
+    // console.log('update token', this.props.user.token)
+    // const updatedQuantity = 2 // how to update the quantity
+    // console.log('updatedQuantity is', updatedQuantity)
+    // this.setState({ // this does not update orderQuantity. Help.
+    //   orderQuantity: updatedQuantity
+    // })
+    console.log('updated quantity is', this.state.orderQuantity)
+    console.log('flowerName is', this.state.flowerName)
+    axios({
+      url: `${apiUrl}/orders/${this.state.orderId}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        order: {
+          orderQuantity: this.state.orderQuantity
+        }
+      },
+      owner: this.props.user
+    })
+      .then((response) => console.log(response))
+      .catch(console.error)
+    console.log('updated quantity is', this.state.orderQuantity)
   }
 
   handleDestroy = () => {
@@ -91,6 +136,7 @@ class Order extends Component {
       .catch(console.error)
   }
   render () {
+    console.log('render quantity', this.state.orderQuantity)
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     let jsx
     if (this.state.isLoaded === false) {
@@ -110,7 +156,8 @@ class Order extends Component {
       <div>
         <h2>Current Order</h2>
         {jsx}
-        <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
+        <Button onClick={this.handleUp} variant="primary">Up</Button>
+        <Button onClick={this.handleDown} variant="primary">Down</Button>
         <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
     )
