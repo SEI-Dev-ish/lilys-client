@@ -16,12 +16,9 @@ class Flower extends Component {
   }
 
   handleSubmit = (event) => {
-<<<<<<< HEAD
     console.log(this.props.name, this.props.price)
     console.log(this.props.user.token)
     console.log('quantity', this.props.orderQuantity)
-=======
->>>>>>> order history update
     // const flower = this.props.name + this.props.price
     axios({
       url: `${apiUrl}/order`,
