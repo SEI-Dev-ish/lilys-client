@@ -12,13 +12,44 @@ class Order extends Component {
     this.state = {
       orderId: '',
       orderPrice: '',
+      totalPrice: '',
       isInOrder: false,
       orderQuantity: 1,
       isDeleted: false,
       flowerName: '',
-      isLoaded: false
+      isLoaded: false,
+      isComplete: false
     }
   }
+
+  componentDidMount () {
+    const user = this.props.user
+    let orderCount = []
+    // console.log('update order id', this.props)
+    showOrder(user)
+      .then(response => {
+        console.log(response)
+        if (response.data.order.length > 0) {
+          orderCount = (response.data.order.length - 1)
+          this.setState({
+            isLoaded: true,
+            orderId: response.data.order[orderCount]._id,
+            orderPrice: response.data.order[orderCount].flower[0].price,
+            isInOrder: true,
+            orderQuantity: response.data.order[orderCount].quantity,
+            flowerName: response.data.order[orderCount].flower[0].name,
+            isComplete: response.data.order.isCompelte
+          })
+        } else {
+          this.setState({
+            orderId: '',
+            isLoaded: true
+          })
+        }
+      })
+      .catch(console.error)
+  }
+
   handleUp = (event) => {
     event.preventDefault()
     this.setState(() => {
@@ -103,14 +134,42 @@ class Order extends Component {
       })
       .catch(console.error)
   }
+  handleComplete = () => {
+    axios({
+      url: `${apiUrl}/orders/${this.state.orderId}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        order: {
+          orderQuantity: this.state.orderQuantity,
+          totalPrice: this.state.totalPrice,
+          isComplete: true
+        }
+      }
+    })
+      .then(response => {
+        this.setState({
+          orderId: '',
+          orderPrice: '',
+          totalPrice: '',
+          isInOrder: false,
+          orderQuantity: 0,
+          isDeleted: false,
+          flowerName: '',
+          isLoaded: true
+        })
+      })
+  }
   render () {
     console.log('render quantity', this.state.orderQuantity)
     let jsx
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-    } else if (this.state.orderId === '') {
-      jsx = <h4>You have no orders at this time</h4>
+    } else if (this.state.orderId === '' || this.state.isComplete === true) {
+      jsx = <p>You have no orders at this time</p>
     } else {
       jsx = (
         <div key={orderId}>

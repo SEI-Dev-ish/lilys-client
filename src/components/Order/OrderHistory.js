@@ -7,8 +7,7 @@ class OrderHistory extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      order: [],
-      isLoaded: false
+      order: []
     }
   }
 
@@ -30,7 +29,6 @@ class OrderHistory extends Component {
         complete.push(this.state.order[i])
       }
     }
-    console.log(complete)
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p><em>Loading...</em></p>
@@ -43,9 +41,9 @@ class OrderHistory extends Component {
           <div key={_id}>
             <li id={_id}>Order # {_id}</li>
             {flower.map(({ index, id, name, price }) => (
-              <span key={index}>
+              <div key={_id}>
                 <p id={id}>Flower: {name} ${price}</p>
-              </span>
+              </div>
             ))}
             <p>Total Price ${totalPrice}</p>
           </div>
