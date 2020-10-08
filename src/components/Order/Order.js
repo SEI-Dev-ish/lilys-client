@@ -34,6 +34,7 @@ class Order extends Component {
           this.setState({
             isLoaded: true,
             orderId: response.data.order[orderCount]._id,
+            flowerPrice: response.data.order[orderCount].flower[0].price,
             orderPrice: response.data.order[orderCount].flower[0].price,
             isInOrder: true,
             orderQuantity: response.data.order[orderCount].quantity,
@@ -54,8 +55,9 @@ class Order extends Component {
     event.preventDefault()
     this.setState(() => {
       const newOrderQuantity = this.state.orderQuantity + 1
+      const totalPrice = this.state.orderPrice + this.state.flowerPrice
       console.log('newOrderQuantity', newOrderQuantity)
-      return { orderQuantity: newOrderQuantity }
+      return { orderQuantity: newOrderQuantity, orderPrice: totalPrice }
     })
   }
   handleUpdate = (event) => {
@@ -67,7 +69,8 @@ class Order extends Component {
       },
       data: {
         order: {
-          quantity: this.state.orderQuantity
+          quantity: this.state.orderQuantity,
+          totalPrice: this.state.orderPrice
         }
       },
       owner: this.props.user
@@ -85,7 +88,12 @@ class Order extends Component {
       if (prevOrderQuantity > 1) {
         newOrderQuantity = prevOrderQuantity - 1
       }
-      return { orderQuantity: newOrderQuantity }
+      const prevOrderPrice = prevState.orderPrice
+      let totalPrice = prevOrderPrice
+      if (prevOrderPrice > this.state.flowerPrice) {
+        totalPrice = this.state.orderPrice - this.state.flowerPrice
+      }
+      return { orderQuantity: newOrderQuantity, orderPrice: totalPrice }
     })
     console.log('updated quantity is', this.state.orderQuantity)
     console.log('flowerName is', this.state.flowerName)
