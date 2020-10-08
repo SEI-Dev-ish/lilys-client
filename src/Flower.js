@@ -8,18 +8,17 @@ import apiUrl from './apiConfig'
 
 class Flower extends Component {
   constructor (props) {
-    console.log(props)
     super(props)
     this.state = {
       isInOrder: false,
-      quantity: ''
+      quantity: 1
     }
   }
 
   handleSubmit = (event) => {
     console.log(this.props.name, this.props.price)
     console.log(this.props.user.token)
-    console.log('quantity', this.props.orderQuantity)
+    console.log('quantity', this.state.quantity)
     // const flower = this.props.name + this.props.price
     axios({
       url: `${apiUrl}/order`,
@@ -31,6 +30,7 @@ class Flower extends Component {
         order: {
           isComplete: false,
           totalPrice: this.props.price,
+          quantity: this.state.quantity,
           flower: [ {
             name: this.props.name,
             price: this.props.price,
@@ -48,12 +48,11 @@ class Flower extends Component {
   }
 
   render () {
-    console.log(this.state)
     let jsx
     if (this.props.user !== null) {
       jsx =
           <div>
-            <Card style={{ width: '18rem' }}>
+            <Card border='primary' style={{ width: '18rem' }} >
               <Card.Img variant="top" src={this.props.image} />
               <Card.Body>
                 <Card.Title>{this.props.name}</Card.Title>
@@ -68,7 +67,7 @@ class Flower extends Component {
     } if (this.props.user === null) {
       jsx =
       <div>
-        <Card style={{ width: '18rem' }}>
+        <Card border='primary' style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.props.image}/>
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
