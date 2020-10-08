@@ -85,33 +85,34 @@ class Order extends Component {
     })
       .then(response => {
         this.setState({
-          isDeleted: true
+          isDeleted: true,
+          orderId: ''
         })
       })
       .catch(console.error)
   }
   render () {
-    const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     let jsx
+    const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (this.state.orderId === '') {
-      jsx = <p>You have no orders at this time</p>
+      jsx = <h4>You have no orders at this time</h4>
     } else {
       jsx = (
         <div key={orderId}>
+          <h2>Current Order</h2>
           <h5>{flowerName}</h5>
           <p>Price: ${orderPrice}</p>
           <p>Quantity: {orderQuantity}</p>
+          <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
+          <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
         </div>
       )
     }
     return (
       <div>
-        <h2>Current Order</h2>
         {jsx}
-        <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
-        <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
     )
   }
