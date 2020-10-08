@@ -11,11 +11,13 @@ class Order extends Component {
     this.state = {
       orderId: '',
       orderPrice: '',
+      totalPrice: '',
       isInOrder: false,
       orderQuantity: 0,
       isDeleted: false,
       flowerName: '',
-      isLoaded: false
+      isLoaded: false,
+      isComplete: false
     }
   }
 
@@ -25,18 +27,17 @@ class Order extends Component {
     // console.log('update order id', this.props)
     showOrder(user)
       .then(response => {
+        console.log(response)
         if (response.data.order.length > 0) {
-          orderCount = (response.data.order.length - 1) // look for incomplete
-          console.log('last order index is', response.data.order)
-          // console.log('last order id', response.data.order[orderCount]._id)
-          console.log('last flower price', response.data.order[orderCount].flower[0].price)
+          orderCount = (response.data.order.length - 1)
           this.setState({
             isLoaded: true,
             orderId: response.data.order[orderCount]._id,
             orderPrice: response.data.order[orderCount].flower[0].price,
             isInOrder: true,
             orderQuantity: response.data.order[orderCount].quantity,
-            flowerName: response.data.order[orderCount].flower[0].name
+            flowerName: response.data.order[orderCount].flower[0].name,
+            isComplete: response.data.order.isCompelte
           })
         } else {
           this.setState({
@@ -136,13 +137,41 @@ class Order extends Component {
       })
       .catch(console.error)
   }
+  handleComplete = () => {
+    axios({
+      url: `${apiUrl}/orders/${this.state.orderId}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        order: {
+          orderQuantity: this.state.orderQuantity,
+          totalPrice: this.state.totalPrice,
+          isComplete: true
+        }
+      }
+    })
+      .then(response => {
+        this.setState({
+          orderId: '',
+          orderPrice: '',
+          totalPrice: '',
+          isInOrder: false,
+          orderQuantity: 0,
+          isDeleted: false,
+          flowerName: '',
+          isLoaded: true
+        })
+      })
+  }
   render () {
-    console.log('render quantity', this.state.orderQuantity)
+    console.log(this.state.isComplete)
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     let jsx
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-    } else if (this.state.orderId === '') {
+    } else if (this.state.orderId === '' || this.state.isComplete === true) {
       jsx = <p>You have no orders at this time</p>
     } else {
       jsx = (
@@ -150,6 +179,10 @@ class Order extends Component {
           <h5>{flowerName}</h5>
           <p>Price: ${orderPrice}</p>
           <p>Quantity: {orderQuantity}</p>
+          <Button onClick={this.handleUp} variant="primary">Up</Button>
+          <Button onClick={this.handleDown} variant="primary">Down</Button>
+          <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
+          <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
         </div>
       )
     }
@@ -157,9 +190,6 @@ class Order extends Component {
       <div>
         <h2>Current Order</h2>
         {jsx}
-        <Button onClick={this.handleUp} variant="primary">Up</Button>
-        <Button onClick={this.handleDown} variant="primary">Down</Button>
-        <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
     )
   }
