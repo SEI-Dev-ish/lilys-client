@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { showOrder } from './../../api/order'
 import Button from 'react-bootstrap/Button'
-// import axios from 'axios'
-// import apiUrl from './../../apiConfig'
+import axios from 'axios'
+import apiUrl from './../../apiConfig'
 
 class Order extends Component {
   constructor (props) {
@@ -12,7 +12,8 @@ class Order extends Component {
       orderId: '',
       orderPrice: '',
       isInOrder: false,
-      orderQuantity: 0
+      orderQuantity: 0,
+      isDeleted: false
     }
   }
 
@@ -36,6 +37,7 @@ class Order extends Component {
       .catch(console.error)
   }
   handleUpdate = (event) => {
+    event.preventDefault()
     console.log('handleUpdate', this.state.orderId, this.state.orderQuantity)
     console.log('update token', this.props.user.token)
     const updatedQuantity = 2
@@ -44,28 +46,37 @@ class Order extends Component {
       orderQuantity: updatedQuantity
     })
     console.log('updated quantity is', this.state.orderQuantity)
-    // const flower = this.props.name + this.props.price
-    // axios({
-    //   url: `${apiUrl}/orders/${this.state.orderId}`,
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Authorization': `Token token=${this.props.user.token}`
-    //   },
-    //   data: {  what do we need to send here
-    //     order: {
-    //       // isComplete: false,
-    //       // totalPrice: this.props.price,
-    //       //   flower: [ {
-    //       //     name: this.state.,
-    //       //     price: this.state.orderPrice,
-    //           orderQuantity: this.state.orderQuantity
-    //     },
-    //     owner: this.props.user
-    //
-    //   }
-    // })
-    //   .then((response) => this.setState({ isInOrder: true }))
-    //   .catch(console.error)
+    axios({
+      url: `${apiUrl}/orders/${this.state.orderId}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      },
+      data: {
+        order: {
+          orderQuantity: updatedQuantity
+        }
+      },
+      owner: this.props.user
+    })
+      .then((response) => console.log(response))
+      .catch(console.error)
+  }
+
+  handleDestroy = () => {
+    axios({
+      url: `${apiUrl}/orders/${this.state.orderId}`,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token token=${this.props.user.token}`
+      }
+    })
+      .then(response => {
+        this.setState({
+          isDeleted: true
+        })
+      })
+      .catch(console.error)
   }
   render () {
     console.log('orders is', this.state.order[7])
@@ -88,7 +99,7 @@ class Order extends Component {
       <div>
         <h2>Current Order</h2>
         <Button onClick={this.handleUpdate} variant="primary">Update Order</Button>
-        <Button variant="primary">Delete Order</Button>
+        <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
       </div>
     )
   }
