@@ -78,7 +78,9 @@ class App extends Component {
             </div>
           )}/>
           <Route exact path='/order' render={() => (
-            <Order user={user} />
+            <Order
+              user={user}
+              msgAlert={this.msgAlert} />
           )} />
           <Route exact path='/order-history' render={() => (
             <OrderHistory user={user} />

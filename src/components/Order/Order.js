@@ -3,7 +3,7 @@ import { showOrder } from './../../api/order'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
-// import messages from '../AutoDismissAlert/messages'
+import messages from '../AutoDismissAlert/messages'
 
 class Order extends Component {
   constructor (props) {
@@ -117,6 +117,7 @@ class Order extends Component {
       .catch(console.error)
   }
   handleComplete = () => {
+    const { msgAlert } = this.props
     axios({
       url: `${apiUrl}/orders/${this.state.orderId}`,
       method: 'PATCH',
@@ -145,6 +146,12 @@ class Order extends Component {
           isComplete: false
         })
       })
+      .then(() => msgAlert({
+        heading: 'Order Placed',
+        message: messages.completeOrder,
+        variant: 'success'
+      }))
+      .catch(console.error)
   }
   render () {
     const complete = []

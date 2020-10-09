@@ -6,5 +6,6 @@ export default {
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
-  addedToOrder: 'Item added to order cart.'
+  addedToOrder: 'Item added to order cart.',
+  completeOrder: 'Your order was placed, thank you!'
 }
