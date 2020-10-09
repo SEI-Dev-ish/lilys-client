@@ -37,7 +37,7 @@ class Order extends Component {
             order: response.data.order,
             orderId: response.data.order[orderCount]._id,
             flowerPrice: response.data.order[orderCount].flower[0].price,
-            orderPrice: response.data.order[orderCount].flower[0].price,
+            orderPrice: response.data.order[orderCount].totalPrice,
             isInOrder: true,
             orderQuantity: response.data.order[orderCount].quantity,
             flowerName: response.data.order[orderCount].flower[0].name
