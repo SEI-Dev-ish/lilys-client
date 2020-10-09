@@ -1,2 +1,9 @@
 $primary: rgb(28, 122, 69);
 @import '~bootstrap/scss/bootstrap';
+
+.card {
+  display: flex;
+  border: 1px solid black;
+  width: 32%;
+  flex-direction: column;
+}
