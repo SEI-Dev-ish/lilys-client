@@ -159,7 +159,7 @@ class Order extends Component {
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (complete.length === 0) {
-      jsx = <h5>You have no orders at this time</h5>
+      jsx = <h5>Your Cart Is Empty</h5>
     } else {
       jsx = (
         <div key={orderId}>
