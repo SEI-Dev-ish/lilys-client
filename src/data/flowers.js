@@ -30,5 +30,21 @@ export default [
     image: 'https://i.imgur.com/XhtraQ3.jpg',
     price: 15,
     orderQuantity: 1
+  },
+  {
+    id: 5,
+    name: 'Mona Lisa Lily',
+    description: 'Similar in pattern to the Stargazer lily, this variety is a lighter, softer version of the more vibrant crowd favorite.',
+    image: 'https://i.imgur.com/5exXNiA.jpg',
+    price: 12,
+    orderQuantity: 1
+  },
+  {
+    id: 6,
+    name: 'Lollypop Lily',
+    description: 'This cheerful two-toned flower is a nice bridge between white and pink blooms in a garden bed.',
+    image: 'https://i.imgur.com/XUWldKX.jpg',
+    price: 10,
+    orderQuantity: 1
   }
 ]

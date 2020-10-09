@@ -190,7 +190,7 @@ class Order extends Component {
     return (
       <div>
         {jsx}
-        <StripeCheckoutButton price={orderPrice} />
+        <StripeCheckoutButton variant="primary" price={orderPrice} />
       </div>
     )
   }

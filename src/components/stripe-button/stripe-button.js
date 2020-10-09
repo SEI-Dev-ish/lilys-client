@@ -15,7 +15,7 @@ const StripeCheckoutButton = ({ price }) => {
       name='One Lily at a time...'
       billingAddress
       shippingAddress
-      image='https://www.freakyjolly.com/wp-content/uploads/2020/04/fj-logo.png'
+      image='https://i.imgur.com/Vlpnpn5.jpg'
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel='Pay Now'

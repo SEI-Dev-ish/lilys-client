@@ -61,20 +61,26 @@ class App extends Component {
 
           <Route user={user} exact path='/' render={() => (
             <div>
-              <h2>Flowers</h2>
-              {flowers.map(flower => (
-                <Flower
-                  user={user}
-                  key={flower.name}
-                  id={flower.id}
-                  name={flower.name}
-                  description={flower.description}
-                  image={flower.image}
-                  price={flower.price}
-                  orderQuantity={flower.orderQuantity}
-                  msgAlert={this.msgAlert}
-                />
-              ))}
+              <h2>Welcome to One Lily at a Time</h2>
+              <div className='container mt-5'>
+                <div className='row'>
+                  {flowers.map(flower => (
+                    <div key={flower.name} className='col-4 card'>
+                      <Flower
+                        user={user}
+                        key={flower.name}
+                        id={flower.id}
+                        name={flower.name}
+                        description={flower.description}
+                        image={flower.image}
+                        price={flower.price}
+                        orderQuantity={flower.orderQuantity}
+                        msgAlert={this.msgAlert}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}/>
           <Route exact path='/order' render={() => (

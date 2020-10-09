@@ -3,9 +3,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-// import Container from 'react-bootstrap/Container'
-// import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col'
 import apiUrl from './apiConfig'
 import messages from './components/AutoDismissAlert/messages'
 // import flowers from './data/flowers'
@@ -60,14 +57,14 @@ class Flower extends Component {
     let jsx
     if (this.props.user !== null) {
       jsx =
-      <div className='card'>
-        <Card border='primary' style={{ width: '18rem' }} >
+      <div>
+        <Card border='primary' style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.props.image} />
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
+            <Card.Title>${this.props.price}</Card.Title>
             <Card.Text>
               {this.props.description}
-                      Price: {this.props.price}
             </Card.Text>
             <Button onClick={this.handleSubmit} variant="primary">Add to cart</Button>
           </Card.Body>
@@ -80,9 +77,9 @@ class Flower extends Component {
           <Card.Img variant="top" src={this.props.image}/>
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
+            <Card.Title>${this.props.price}</Card.Title>
             <Card.Text>
               {this.props.description}
-              Price: {this.props.price}
             </Card.Text>
           </Card.Body>
         </Card>
