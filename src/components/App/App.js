@@ -85,6 +85,9 @@ class App extends Component {
           <Route exact path='/order-history' render={() => (
             <OrderHistory user={user} />
           )} />
+          <Route exact path='/success' />
+          <Route exact path='/cancel' />
+          <Route exact path='/create-checkout-session' />
         </main>
       </Fragment>
     )
