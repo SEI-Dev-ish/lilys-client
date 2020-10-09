@@ -149,7 +149,7 @@ class Order extends Component {
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
     } else if (this.state.orderId === '' || this.state.isComplete === true) {
-      jsx = <p>You have no orders at this time</p>
+      jsx = <h4>You have no orders at this time</h4>
     } else {
       jsx = (
         <div key={orderId}>
@@ -161,6 +161,7 @@ class Order extends Component {
           <Button onClick={this.handleUpdate} variant="primary">Update</Button>
           <Button onClick={this.handleDown} variant="primary">Down</Button>
           <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
+          <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
         </div>
       )
     }
