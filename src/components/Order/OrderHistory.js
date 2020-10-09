@@ -23,6 +23,7 @@ class OrderHistory extends Component {
       .catch(console.error)
   }
   render () {
+    console.log(this.state.order)
     const complete = []
     for (let i = 0; i < this.state.order.length; i++) {
       if (this.state.order[i].isComplete === true) {
@@ -37,14 +38,13 @@ class OrderHistory extends Component {
     } else {
       jsx =
       <ol>
-        {complete.map(({ _id, flower, totalPrice }) => (
+        {complete.map(({ _id, flower, quantity, totalPrice }) => (
           <div key={_id}>
             <li id={_id}>Order # {_id}</li>
             {flower.map(({ index, id, name, price }) => (
-              <div key={_id}>
-                <p id={id}>Flower: {name} ${price}</p>
-              </div>
+              <p key={_id}>Flower: {name} ${price}</p>
             ))}
+            <p>Quantity: {quantity}</p>
             <p>Total Price ${totalPrice}</p>
           </div>
         ))}

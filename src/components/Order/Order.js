@@ -10,6 +10,7 @@ class Order extends Component {
     console.log('order props', props)
     super(props)
     this.state = {
+      order: [],
       orderId: '',
       orderPrice: '',
       totalPrice: '',
@@ -17,7 +18,7 @@ class Order extends Component {
       orderQuantity: 1,
       isDeleted: false,
       flowerName: '',
-      isLoaded: false,
+      isLoaded: true,
       isComplete: false
     }
   }
@@ -33,13 +34,13 @@ class Order extends Component {
           orderCount = (response.data.order.length - 1)
           this.setState({
             isLoaded: true,
+            order: response.data.order,
             orderId: response.data.order[orderCount]._id,
             flowerPrice: response.data.order[orderCount].flower[0].price,
             orderPrice: response.data.order[orderCount].flower[0].price,
             isInOrder: true,
             orderQuantity: response.data.order[orderCount].quantity,
-            flowerName: response.data.order[orderCount].flower[0].name,
-            isComplete: response.data.order.isComplete
+            flowerName: response.data.order[orderCount].flower[0].name
           })
         } else {
           this.setState({
@@ -109,6 +110,7 @@ class Order extends Component {
       .then(response => {
         this.setState({
           isDeleted: true,
+          order: [],
           orderId: ''
         })
       })
@@ -131,6 +133,7 @@ class Order extends Component {
     })
       .then(response => {
         this.setState({
+          order: [],
           orderId: '',
           orderPrice: '',
           totalPrice: '',
@@ -139,18 +142,24 @@ class Order extends Component {
           isDeleted: false,
           flowerName: '',
           isLoaded: true,
-          isComplete: true
+          isComplete: false
         })
       })
   }
   render () {
-    console.log('render quantity', this.state.orderQuantity)
+    const complete = []
+    for (let i = 0; i < this.state.order.length; i++) {
+      if (this.state.order[i].isComplete === false) {
+        complete.push(this.state.order[i])
+      }
+      console.log(complete)
+    }
     let jsx
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-    } else if (this.state.orderId === '' || this.state.isComplete === true) {
-      jsx = <h4>You have no orders at this time</h4>
+    } else if (complete.length === 0) {
+      jsx = <h5>You have no orders at this time</h5>
     } else {
       jsx = (
         <div key={orderId}>
@@ -158,9 +167,9 @@ class Order extends Component {
           <h5>{flowerName}</h5>
           <p>Price: ${orderPrice}</p>
           <p>Quantity: {orderQuantity}</p>
-          <Button onClick={this.handleUp} variant="primary">Up</Button>
+          <Button onClick={this.handleUp} variant="primary">+</Button>
           <Button onClick={this.handleUpdate} variant="primary">Update</Button>
-          <Button onClick={this.handleDown} variant="primary">Down</Button>
+          <Button onClick={this.handleDown} variant="primary">-</Button>
           <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
           <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
         </div>
