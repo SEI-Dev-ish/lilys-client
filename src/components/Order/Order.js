@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 import StripeCheckoutButton from './../stripe-button/stripe-button'
-// import messages from '../AutoDismissAlert/messages'
-import { loadStripe } from '@stripe/stripe-js'
+import messages from '../AutoDismissAlert/messages'
+// import { loadStripe } from '@stripe/stripe-js'
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_51HaPCvIJomovXBOLEB0Alh9IUqrb26S9zpYfDo6awk6DkUkKYFxWuvJRzYBdnox4gf7xb6zWDohZB7r7Yf56kxus00s24ftdzM')
+// const stripePromise = loadStripe('pk_test_51HaPCvIJomovXBOLEB0Alh9IUqrb26S9zpYfDo6awk6DkUkKYFxWuvJRzYBdnox4gf7xb6zWDohZB7r7Yf56kxus00s24ftdzM')
 
 class Order extends Component {
   constructor (props) {
@@ -186,14 +186,13 @@ class Order extends Component {
           <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
         </div>
       )
-
-      return (
-        <div>
-          {jsx}
-          <StripeCheckoutButton price={orderPrice} />
-        </div>
-      )
     }
+    return (
+      <div>
+        {jsx}
+        <StripeCheckoutButton price={orderPrice} />
+      </div>
+    )
   }
 }
 export default Order
