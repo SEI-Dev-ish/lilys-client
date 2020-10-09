@@ -39,7 +39,7 @@ class Order extends Component {
             isInOrder: true,
             orderQuantity: response.data.order[orderCount].quantity,
             flowerName: response.data.order[orderCount].flower[0].name,
-            isComplete: response.data.order.isCompelte
+            isComplete: response.data.order.isComplete
           })
         } else {
           this.setState({
@@ -138,7 +138,8 @@ class Order extends Component {
           orderQuantity: 0,
           isDeleted: false,
           flowerName: '',
-          isLoaded: true
+          isLoaded: true,
+          isComplete: true
         })
       })
   }
