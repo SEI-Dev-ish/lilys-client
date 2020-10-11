@@ -162,18 +162,17 @@ class Order extends Component {
       .catch(console.error)
   }
   render () {
-    const complete = []
+    const incomplete = []
     for (let i = 0; i < this.state.order.length; i++) {
       if (this.state.order[i].isComplete === false) {
-        complete.push(this.state.order[i])
+        incomplete.push(this.state.order[i])
       }
-      // console.log(complete)
     }
     let jsx
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-    } else if (complete.length === 0) {
+    } else if (incomplete.length === 0) {
       jsx = <h5>Your Cart Is Empty</h5>
     } else {
       jsx = (
