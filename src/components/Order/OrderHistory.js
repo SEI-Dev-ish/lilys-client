@@ -23,7 +23,7 @@ class OrderHistory extends Component {
       .catch(console.error)
   }
   render () {
-    console.log(this.state.order)
+    // console.log(this.state.order)
     const complete = []
     for (let i = 0; i < this.state.order.length; i++) {
       if (this.state.order[i].isComplete === true) {

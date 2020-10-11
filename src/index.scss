@@ -1,9 +1,38 @@
 $primary: rgb(28, 122, 69);
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Philosopher&display=swap');
 
-.card {
-  border: 0;
+body {
+  font-family: 'Philosopher', sans-serif;
+}
+
+.lily {
+  font-family: 'Dancing Script', cursive;
+  font-size: 6rem;
+  color: rgb(28, 122,69);
+}
+
+.flower-card {
+  display: flex;
+  margin-bottom: 20px;
   width: 35%;
+
+}
+
+
+#button {
+  display: flex;
+  align-self: flex-end;
+}
+
+
+.welcome {
+  text-align: center;
+  font-size: 2rem;
+}
+
+#pay {
+  visibility: hidden;
 }
 
 // .container {

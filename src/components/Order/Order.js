@@ -12,7 +12,7 @@ import messages from '../AutoDismissAlert/messages'
 
 class Order extends Component {
   constructor (props) {
-    console.log('order props', props)
+    // console.log('order props', props)
     super(props)
     this.state = {
       order: [],
@@ -34,7 +34,7 @@ class Order extends Component {
     // console.log('update order id', this.props)
     showOrder(user)
       .then(response => {
-        console.log(response)
+        // console.log(response)
         if (response.data.order.length > 0) {
           orderCount = (response.data.order.length - 1)
           this.setState({
@@ -62,11 +62,12 @@ class Order extends Component {
     this.setState(() => {
       const newOrderQuantity = this.state.orderQuantity + 1
       const totalPrice = this.state.orderPrice + this.state.flowerPrice
-      console.log('newOrderQuantity', newOrderQuantity)
+      // console.log('newOrderQuantity', newOrderQuantity)
       return { orderQuantity: newOrderQuantity, orderPrice: totalPrice }
     })
   }
   handleUpdate = (event) => {
+    const { msgAlert } = this.props
     axios({
       url: `${apiUrl}/orders/${this.state.orderId}`,
       method: 'PATCH',
@@ -81,9 +82,13 @@ class Order extends Component {
       },
       owner: this.props.user
     })
-      .then((response) => console.log(response))
+      .then(() => msgAlert({
+        heading: 'Item Updated',
+        message: 'Your item has been updated',
+        variant: 'success'
+      }))
       .catch(console.error)
-    console.log('updated quantity is 2', this.state.orderQuantity)
+    // console.log('updated quantity is 2', this.state.orderQuantity)
   }
 
   handleDown = (event) => {
@@ -101,8 +106,6 @@ class Order extends Component {
       }
       return { orderQuantity: newOrderQuantity, orderPrice: totalPrice }
     })
-    console.log('updated quantity is', this.state.orderQuantity)
-    console.log('flowerName is', this.state.flowerName)
   }
   handleDestroy = () => {
     axios({
@@ -164,7 +167,7 @@ class Order extends Component {
       if (this.state.order[i].isComplete === false) {
         complete.push(this.state.order[i])
       }
-      console.log(complete)
+      // console.log(complete)
     }
     let jsx
     const { orderId, flowerName, orderPrice, orderQuantity } = this.state
@@ -184,13 +187,13 @@ class Order extends Component {
           <Button onClick={this.handleDown} variant="primary">-</Button>
           <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
           <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
+          <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} />
         </div>
       )
     }
     return (
       <div>
         {jsx}
-        <StripeCheckoutButton variant="primary" price={orderPrice} />
       </div>
     )
   }

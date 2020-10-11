@@ -10,7 +10,7 @@ export default [
   {
     id: 2,
     name: 'African Queen Lily',
-    description: 'This variety boasts apricot-hued petals and can stand up high temperatures. It\'s a solid performer ub the garden and in containers. ',
+    description: 'This variety boasts apricot-hued petals and can stand up high temperatures.',
     image: 'https://i.imgur.com/EINJJPt.jpg',
     price: 12,
     orderQuantity: 1
@@ -18,7 +18,7 @@ export default [
   {
     id: 3,
     name: 'Stargazer Lily',
-    description: 'Stargazers are one of the most popular, sensational, and mainstream lilies out there. They possess a strong fragrance, making them favorite cut flowers. Bonus: They attract butterflies!',
+    description: 'Stargazers are one of the most popular, sensational, and mainstream lilies out there.',
     image: 'https://i.imgur.com/Vlpnpn5.jpg',
     price: 10,
     orderQuantity: 1
@@ -26,7 +26,7 @@ export default [
   {
     id: 4,
     name: 'Tiger Lily',
-    description: 'This flower with statement-making orange petals and dark spots is a garden favorite. It\'s important to note that it is poisonous to cats before planting.',
+    description: 'This flower with statement-making orange petals and dark spots is a garden favorite.',
     image: 'https://i.imgur.com/XhtraQ3.jpg',
     price: 15,
     orderQuantity: 1
@@ -34,7 +34,7 @@ export default [
   {
     id: 5,
     name: 'Mona Lisa Lily',
-    description: 'Similar in pattern to the Stargazer lily, this variety is a lighter, softer version of the more vibrant crowd favorite.',
+    description: 'This variety is a lighter, softer version of the more vibrant crowd favorite.',
     image: 'https://i.imgur.com/5exXNiA.jpg',
     price: 12,
     orderQuantity: 1

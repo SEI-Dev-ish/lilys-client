@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 // import { Route } from 'react-router-dom'
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
@@ -18,9 +18,9 @@ class Flower extends Component {
 
   handleSubmit = (event) => {
     const { msgAlert } = this.props
-    console.log(this.props.name, this.props.price)
-    console.log(this.props.user.token)
-    console.log('quantity', this.state.quantity)
+    // console.log(this.props.name, this.props.price)
+    // console.log(this.props.user.token)
+    // console.log('quantity', this.state.quantity)
     // const flower = this.props.name + this.props.price
     axios({
       url: `${apiUrl}/order`,
@@ -57,8 +57,9 @@ class Flower extends Component {
     let jsx
     if (this.props.user !== null) {
       jsx =
+    <Fragment>
       <div>
-        <Card border='primary' style={{ width: '18rem' }}>
+        <Card border='0' className='m-auto' height='100%' style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.props.image} />
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>
@@ -66,14 +67,17 @@ class Flower extends Component {
             <Card.Text>
               {this.props.description}
             </Card.Text>
-            <Button onClick={this.handleSubmit} variant="primary">Add to cart</Button>
           </Card.Body>
         </Card>
       </div>
+      <div id='button'>
+        <Button className='align-self-end' onClick={this.handleSubmit} variant="primary">Add to cart</Button>
+      </div>
+    </Fragment>
     } if (this.props.user === null) {
       jsx =
       <div>
-        <Card border='primary' style={{ width: '18rem' }}>
+        <Card border='0' className='m-auto' style={{ width: '18rem' }}>
           <Card.Img variant="top" src={this.props.image}/>
           <Card.Body>
             <Card.Title>{this.props.name}</Card.Title>

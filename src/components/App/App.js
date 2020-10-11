@@ -61,11 +61,11 @@ class App extends Component {
 
           <Route user={user} exact path='/' render={() => (
             <div>
-              <h2>Welcome to One Lily at a Time</h2>
+              <h2 className='welcome mt-3'>One <span className='lily'>Lily</span> at a Time</h2>
               <div className='container mt-5'>
                 <div className='row'>
                   {flowers.map(flower => (
-                    <div key={flower.name} className='col-4 card'>
+                    <div key={flower.name} className='col-4 flower-card'>
                       <Flower
                         user={user}
                         key={flower.name}
