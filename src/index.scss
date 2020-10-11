@@ -16,24 +16,25 @@ body {
   display: flex;
   margin-bottom: 20px;
   width: 35%;
-
 }
-
-
-#button {
-  display: flex;
-  align-self: flex-end;
-}
-
 
 .welcome {
   text-align: center;
   font-size: 2rem;
 }
 
-#pay {
-  visibility: hidden;
+.quantity-buttons {
+  margin-bottom: 20px;
 }
+
+.order-buttons {
+  // border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  max-height: 35px;
+}
+
 
 // .container {
 //   border: 2px solid black;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { showOrder } from './../../api/order'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
@@ -177,18 +177,24 @@ class Order extends Component {
       jsx = <h5>Your Cart Is Empty</h5>
     } else {
       jsx = (
-        <div key={orderId}>
-          <h2>Current Order</h2>
-          <h5>{flowerName}</h5>
-          <p>Price: ${orderPrice}</p>
-          <p>Quantity: {orderQuantity}</p>
-          <Button onClick={this.handleUp} variant="primary">+</Button>
-          <Button onClick={this.handleUpdate} variant="primary">Update</Button>
-          <Button onClick={this.handleDown} variant="primary">-</Button>
-          <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
-          <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
-          <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} />
-        </div>
+        <Fragment>
+          <div key={orderId}>
+            <h2>Current Order</h2>
+            <h5>{flowerName}</h5>
+            <p>Price: ${orderPrice}</p>
+            <p>Quantity: {orderQuantity}</p>
+            <div className='quantity-buttons'>
+              <Button onClick={this.handleUp} variant="primary">+</Button>
+              <Button onClick={this.handleDown} variant="primary">-</Button>
+            </div>
+            <div className='order-buttons'>
+              <Button onClick={this.handleUpdate} variant="primary">Update</Button>
+              <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
+              <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
+              <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} />
+            </div>
+          </div>
+        </Fragment>
       )
     }
     return (
