@@ -8,6 +8,10 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import flowers from './../../data/flowers'
+import Flower from './../../Flower'
+import Order from './../Order/Order'
+import OrderHistory from './../Order/OrderHistory'
 
 class App extends Component {
   constructor () {
@@ -54,6 +58,42 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+
+          <Route user={user} exact path='/' render={() => (
+            <div>
+              <h2 className='welcome mt-3'>One <span className='lily'>Lily</span> at a Time</h2>
+              <div className='container mt-5'>
+                <div className='row'>
+                  {flowers.map(flower => (
+                    <div key={flower.name} className='col-4 flower-card'>
+                      <Flower
+                        user={user}
+                        key={flower.name}
+                        id={flower.id}
+                        name={flower.name}
+                        description={flower.description}
+                        image={flower.image}
+                        price={flower.price}
+                        orderQuantity={flower.orderQuantity}
+                        msgAlert={this.msgAlert}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}/>
+          <Route exact path='/order' render={() => (
+            <Order
+              user={user}
+              msgAlert={this.msgAlert} />
+          )} />
+          <Route exact path='/order-history' render={() => (
+            <OrderHistory user={user} />
+          )} />
+          <Route exact path='/success' />
+          <Route exact path='/cancel' />
+          <Route exact path='/create-checkout-session' />
         </main>
       </Fragment>
     )
