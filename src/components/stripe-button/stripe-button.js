@@ -1,32 +1,57 @@
 // stripe.button.component.jsx
-import React from 'react'
+import React, { Fragment } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios'
+import apiUrl from './../../apiConfig'
 
-const StripeCheckoutButton = ({ price, msgAlert }) => {
+const StripeCheckoutButton = (props) => {
+  console.log(props)
+  const price = props.price
   const priceForStripe = price * 100
   const publishableKey = 'pk_test_sLUqHXtqXOkwSdPosC8ZikQ800snMatYMb'
   const onToken = token => {
-    // console.log(token)
-    msgAlert({
-      heading: 'Payment received',
-      message: 'Thank you, please click Complete Order',
-      variant: 'success'
-    }
-    )
+    const cart = props.incart[0]
+    const user = props.user
+    const msgAlert = props.msgAlert
+    axios({
+      url: `${apiUrl}/orders/${cart._id}`,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      },
+      data: {
+        order: {
+          isComplete: true
+        }
+      }
+    })
+      .then(() => msgAlert({
+        heading: 'Payment received',
+        message: 'Your Order Has Been Placed, Thank You',
+        variant: 'success'
+      }))
+      .catch(() => msgAlert({
+        heading: 'Paymet Failed',
+        message: 'Payment Unsuccessful, Try Again',
+        variant: 'danger'
+      }))
   }
+
   return (
-    <StripeCheckout
-      label='Pay Now'
-      name='One Lily at a time...'
-      billingAddress
-      shippingAddress
-      image='https://i.imgur.com/Vlpnpn5.jpg'
-      description={`Your total is $${price}`}
-      amount={priceForStripe}
-      panelLabel='Pay Now'
-      token={onToken}
-      stripeKey={publishableKey}
-    />
+    <Fragment>
+      <StripeCheckout
+        label='Checkout'
+        name='One Lily at a time...'
+        billingAddress
+        shippingAddress
+        image='https://i.imgur.com/Vlpnpn5.jpg'
+        description={`Your total is $${price}`}
+        amount={priceForStripe}
+        panelLabel='Pay Now'
+        token={onToken}
+        stripeKey={publishableKey}
+      />
+    </Fragment>
   )
 }
 

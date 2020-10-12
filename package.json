@@ -1,6 +1,6 @@
 {
   "name": "lilys-client",
-  "homepage": "https://github.com/SEI-Dev-ish/lilys-client",
+  "homepage": "https://github.com/sei-dev-ish/lilys-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

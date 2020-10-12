@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import axios from 'axios'
-// import apiUrl from './../../apiConfig'
 import { showOrder } from './../../api/order'
 
 class OrderHistory extends Component {
@@ -39,10 +37,10 @@ class OrderHistory extends Component {
       jsx =
       <ol>
         {complete.map(({ _id, flower, quantity, totalPrice }) => (
-          <div key={_id}>
+          <div className='history' key={_id}>
             <li id={_id}>Order # {_id}</li>
             {flower.map(({ index, id, name, price }) => (
-              <p key={_id}>Flower: {name} ${price}</p>
+              <p key={_id}><strong>Flower:</strong> <span className='name'>{name}</span> - ${price}ea.</p>
             ))}
             <p>Quantity: {quantity}</p>
             <p>Total Price ${totalPrice}</p>
@@ -51,8 +49,8 @@ class OrderHistory extends Component {
       </ol>
     }
     return (
-      <div>
-        <h1>Order History</h1>
+      <div className='container'>
+        <h1 className='orderHistory'>Order History</h1>
         {jsx}
       </div>
     )
