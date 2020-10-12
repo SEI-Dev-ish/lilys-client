@@ -189,8 +189,7 @@ class Order extends Component {
             <div className='order-buttons'>
               <Button onClick={this.handleUpdate} variant="primary">Update</Button>
               <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
-              <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
-              <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} />
+              <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} incart={incomplete} user={this.props.user} />
             </div>
           </div>
         </Fragment>
