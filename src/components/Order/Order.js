@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 import StripeCheckoutButton from './../stripe-button/stripe-button'
-import messages from '../AutoDismissAlert/messages'
 // import { loadStripe } from '@stripe/stripe-js'
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -124,43 +123,6 @@ class Order extends Component {
       })
       .catch(console.error)
   }
-  handleComplete = () => {
-    const { msgAlert } = this.props
-    axios({
-      url: `${apiUrl}/orders/${this.state.orderId}`,
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Token token=${this.props.user.token}`
-      },
-      data: {
-        order: {
-          orderQuantity: this.state.orderQuantity,
-          totalPrice: this.state.totalPrice,
-          isComplete: true
-        }
-      }
-    })
-      .then(response => {
-        this.setState({
-          order: [],
-          orderId: '',
-          orderPrice: '',
-          totalPrice: '',
-          isInOrder: false,
-          orderQuantity: 0,
-          isDeleted: false,
-          flowerName: '',
-          isLoaded: true,
-          isComplete: false
-        })
-      })
-      .then(() => msgAlert({
-        heading: 'Order Placed',
-        message: messages.completeOrder,
-        variant: 'success'
-      }))
-      .catch(console.error)
-  }
   render () {
     const incomplete = []
     for (let i = 0; i < this.state.order.length; i++) {
@@ -189,7 +151,6 @@ class Order extends Component {
             <div className='order-buttons'>
               <Button onClick={this.handleUpdate} variant="primary">Update</Button>
               <Button onClick={this.handleDestroy} variant="primary">Delete Order</Button>
-              <Button onClick={this.handleComplete} variant="primary">Complete Order</Button>
               <StripeCheckoutButton msgAlert={this.props.msgAlert} price={orderPrice} />
             </div>
           </div>
