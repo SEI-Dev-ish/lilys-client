@@ -29,11 +29,16 @@ class StripeCheckoutButton extends Component {
         }
       }
     })
-    msgAlert({
-      heading: 'Payment received',
-      message: 'Thank you, please click Complete Order',
-      variant: 'success'
-    })
+      .then(() => msgAlert({
+        heading: 'Payment received',
+        message: 'Thank you, please click Complete Order',
+        variant: 'success'
+      }))
+      .catch(() => msgAlert({
+        heading: 'Paymet Failed',
+        message: 'Payment Unsuccessful, Try Again',
+        variant: 'danger'
+      }))
   }
   render () {
     const price = this.props.price
