@@ -25,6 +25,8 @@ body {
 
 .quantity-buttons {
   margin-bottom: 20px;
+  display: flex;
+  position: static;
 }
 
 .order-buttons {
@@ -35,11 +37,28 @@ body {
   max-height: 35px;
 }
 
-
-// .container {
-//   border: 2px solid black;
-// }
-//
-// .row {
-//   border: 3px solid blue;
-// }
+.history {
+  border: 2px solid $primary;
+  width: 18rem;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.name {
+  text-decoration: underline;
+}
+li {
+  font-weight: 900;
+}
+.orderHistory {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: rgb(28, 122,69);
+  text-align: center;
+  text-decoration: underline;
+}
+.currentOrderTitle {
+  font-family: 'Dancing Script', cursive;
+  color: rgb(28, 122,69);
+  text-decoration: underline;
+}

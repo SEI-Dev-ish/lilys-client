@@ -1,20 +1,18 @@
 // stripe.button.component.jsx
-import React, { Component } from 'react'
+import React, { Fragment } from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
-class StripeCheckoutButton extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isComplete: false
-    }
-  }
-  onToken = token => {
-    const cart = this.props.incart[0]
-    const user = this.props.user
-    const msgAlert = this.props.msgAlert
+const StripeCheckoutButton = (props) => {
+  console.log(props)
+  const price = props.price
+  const priceForStripe = price * 100
+  const publishableKey = 'pk_test_sLUqHXtqXOkwSdPosC8ZikQ800snMatYMb'
+  const onToken = token => {
+    const cart = props.incart[0]
+    const user = props.user
+    const msgAlert = props.msgAlert
     axios({
       url: `${apiUrl}/orders/${cart._id}`,
       method: 'PATCH',
@@ -23,15 +21,13 @@ class StripeCheckoutButton extends Component {
       },
       data: {
         order: {
-          orderQuantity: this.state.orderQuantity,
-          totalPrice: this.state.totalPrice,
           isComplete: true
         }
       }
     })
       .then(() => msgAlert({
         heading: 'Payment received',
-        message: 'Thank you, please click Complete Order',
+        message: 'Your Order Has Been Placed, Thank You',
         variant: 'success'
       }))
       .catch(() => msgAlert({
@@ -40,11 +36,9 @@ class StripeCheckoutButton extends Component {
         variant: 'danger'
       }))
   }
-  render () {
-    const price = this.props.price
-    const priceForStripe = price * 100
-    const publishableKey = 'pk_test_sLUqHXtqXOkwSdPosC8ZikQ800snMatYMb'
-    return (
+
+  return (
+    <Fragment>
       <StripeCheckout
         label='Checkout'
         name='One Lily at a time...'
@@ -54,11 +48,11 @@ class StripeCheckoutButton extends Component {
         description={`Your total is $${price}`}
         amount={priceForStripe}
         panelLabel='Pay Now'
-        token={this.onToken}
+        token={onToken}
         stripeKey={publishableKey}
       />
-    )
-  }
+    </Fragment>
+  )
 }
 
 export default StripeCheckoutButton
