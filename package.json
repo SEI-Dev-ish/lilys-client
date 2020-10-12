@@ -1,10 +1,6 @@
 {
   "name": "lilys-client",
-<<<<<<< HEAD
   "homepage": "https://github.com/sei-dev-ish/lilys-client",
-=======
-  "homepage": "https://sei-dev-ish.github.io/lilys-client",
->>>>>>> package.json change
   "version": "0.1.0",
   "private": true,
   "dependencies": {
