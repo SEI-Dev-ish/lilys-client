@@ -16,29 +16,49 @@ body {
   display: flex;
   margin-bottom: 20px;
   width: 35%;
-
 }
-
-
-#button {
-  display: flex;
-  align-self: flex-end;
-}
-
 
 .welcome {
   text-align: center;
   font-size: 2rem;
 }
 
-#pay {
-  visibility: hidden;
+.quantity-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  position: static;
 }
 
-// .container {
-//   border: 2px solid black;
-// }
-//
-// .row {
-//   border: 3px solid blue;
-// }
+.order-buttons {
+  // border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  max-height: 35px;
+}
+
+.history {
+  border: 2px solid $primary;
+  width: 18rem;
+  border-radius: 25px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.name {
+  text-decoration: underline;
+}
+li {
+  font-weight: 900;
+}
+.orderHistory {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: rgb(28, 122,69);
+  text-align: center;
+  text-decoration: underline;
+}
+.currentOrderTitle {
+  font-family: 'Dancing Script', cursive;
+  color: rgb(28, 122,69);
+  text-decoration: underline;
+}
